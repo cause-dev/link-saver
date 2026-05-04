@@ -1,26 +1,55 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@theme {
+  /* Base palette (optional internal only) */
+  --color-bg: #241f31;
+  --color-bg-subtle: #3d3846;
+  --color-bg-muted: #5e5c64;
+  --color-bg-strong: #000000;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+  --color-text-primary: #f6f5f4;
+  --color-text-secondary: #deddda;
+  --color-text-muted: #9a9996;
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  --color-blue-1: #99c1f1;
+  --color-blue-2: #62a0ea;
+  --color-blue-3: #3584e4;
+  --color-blue-4: #1c71d8;
+  --color-blue-5: #1a5fb4;
+
+  --color-green: #33d17a;
+  --color-yellow: #f6d32d;
+  --color-red: #e01b24;
+  --color-purple: #9141ac;
+
+  /* Semantic TOKENS (THIS is what Tailwind should generate utilities from) */
+
+  --color-surface: #241f31;
+  --color-surface-2: #3d3846;
+  --color-surface-3: #5e5c64;
+  --color-surface-strong: #000000;
+
+  --color-fg: #f6f5f4;
+  --color-fg-muted: #deddda;
+  --color-fg-subtle: #9a9996;
+
+  --color-primary: #3584e4;
+  --color-primary-hover: #62a0ea;
+  --color-primary-active: #1c71d8;
+
+  --color-success: #33d17a;
+  --color-warning: #f6d32d;
+  --color-danger: #e01b24;
+  --color-accent: #9141ac;
+
+  --color-border: color-mix(in srgb, #5e5c64 60%, transparent);
+  --color-border-subtle: #3d3846;
+
+  --color-hover: #3d3846;
+  --color-active: #5e5c64;
+  --color-focus-ring: #62a0ea;
 }
