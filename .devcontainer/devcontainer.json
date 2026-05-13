@@ -1,49 +1,77 @@
 {
-  "name": "link-saver",
-  "build": {
-    "dockerfile": "../Containerfile",
-    "context": "..",
-    "target": "development"
-  },
-  "runArgs": ["--userns=keep-id"],
-  "workspaceFolder": "/app",
-  "workspaceMount": "source=${localWorkspaceFolder},target=/app,type=bind,relabel=shared",
-  "mounts": [
-    "source=link-saver-node-modules,target=/app/node_modules,type=volume",
-    "source=link-saver-bun-cache,target=/home/bun/.bun/install/cache,type=volume",
-    "source=link-saver-vscode-server,target=/home/bun/.vscode-server,type=volume"
+  "name": "Link Saver — Frontend (Next.js)",
+  "dockerComposeFile": [
+    "./compose.yml"
   ],
-  "remoteUser": "bun",
-  "updateRemoteUserUID": false,
-  "forwardPorts": [3000],
-  "portsAttributes": {
-    "3000": {
-      "label": "Next.js Dev",
-      "onAutoForward": "notify"
-    }
-  },
-  "postCreateCommand": "bun install",
-  "postStartCommand": "bun run dev -- --hostname 0.0.0.0",
-  "shutdownAction": "stopContainer",
+  "service": "frontend",
+  "workspaceFolder": "/app",
+  "shutdownAction": "stopCompose",
+  "overrideCommand": false,
   "customizations": {
     "vscode": {
-      "settings": {
-        "terminal.integrated.defaultProfile.linux": "bash",
-        "files.watcherExclude": {
-          "**/.next/**": true,
-          "**/node_modules/**": true
-        },
-        "search.exclude": {
-          "**/.next": true,
-          "**/node_modules": true
-        }
-      },
       "extensions": [
-        "oven.bun-vscode",
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
-        "bradlc.vscode-tailwindcss"
-      ]
+        "bradlc.vscode-tailwindcss",
+        "dsznajder.es7-react-js-snippets",
+        "formulahendry.auto-rename-tag",
+        "mikestead.dotenv"
+      ],
+      "settings": {
+        "[typescript]": {
+          "editor.tabSize": 2
+        },
+        "[typescriptreact]": {
+          "editor.tabSize": 2
+        },
+        "[json]": {
+          "editor.tabSize": 2
+        },
+        "[css]": {
+          "editor.tabSize": 2
+        },
+        "[markdown]": {
+          "files.trimTrailingWhitespace": false
+        },
+        "tailwindCSS.emmetCompletions": true,
+        "emmet.includeLanguages": {
+          "typescriptreact": "html"
+        },
+        "eslint.workingDirectories": [
+          "/app"
+        ],
+        "eslint.validate": [
+          "javascript",
+          "javascriptreact",
+          "typescript",
+          "typescriptreact"
+        ],
+        "files.exclude": {
+          "**/.next": true,
+          "**/node_modules": true
+        },
+        "files.watcherExclude": {
+          "**/node_modules/**": true,
+          "**/.next/**": true
+        },
+        "search.exclude": {
+          "**/node_modules": true,
+          "**/.next": true
+        },
+        "files.trimTrailingWhitespace": true,
+        "files.insertFinalNewline": true,
+        "files.trimFinalNewlines": true
+      }
     }
-  }
+  },
+  "forwardPorts": [
+    3000
+  ],
+  "portsAttributes": {
+    "3000": {
+      "label": "Next.js",
+      "onAutoForward": "openBrowser"
+    }
+  },
+  "remoteUser": "root"
 }
