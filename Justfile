@@ -31,8 +31,9 @@ logs *args:
     @just _compose logs -f {{ args }}
 
 [group('app')]
-migrate:
-    @just _compose exec frontend bunx prisma migrate dev --name init
+migrate NAME:
+    @echo "Running migration: {{NAME}}"
+    @just _compose exec frontend bunx prisma migrate dev --name {{NAME}}
 
 [group('lifecycle')]
 frontend:
