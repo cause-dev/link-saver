@@ -32,8 +32,7 @@ logs *args:
 
 [group('app')]
 migrate:
-    @just _compose exec backend uv run python manage.py makemigrations
-    @just _compose exec backend uv run python manage.py migrate
+    @just _compose exec frontend bunx prisma migrate dev --name init
 
 [group('lifecycle')]
 frontend:
