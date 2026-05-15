@@ -31,7 +31,7 @@ services:
       - ../:/app:z
       - next:/app/.next
       - node_modules:/app/node_modules
-      - frontend_vscode:/root/.vscode-server
+      - vscode:/root/.vscode-server
     depends_on:
       db:
         condition: service_healthy
@@ -41,5 +41,4 @@ volumes:
   data:
   next:
   node_modules:
-  frontend_vscode:
-    name: frontend_vscode
+  vscode:
