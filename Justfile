@@ -16,7 +16,6 @@ up *args:
 [group('lifecycle')]
 down *args:
     @just _compose down {{ args }}
-    podman volume rm linksaver_next
 
 [group('lifecycle')]
 restart *args:
