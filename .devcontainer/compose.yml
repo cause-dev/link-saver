@@ -29,9 +29,10 @@ services:
       - ../.env.local
     volumes:
       - ../:/app:z
-      - next:/app/.next
-      - node_modules:/app/node_modules
+      - /app/.next
+      - /app/node_modules
       - vscode:/root/.vscode-server/extensions
+    command: sh -c "rm -rf .next/* && bunx --bun prisma generate && bun run dev"
     depends_on:
       db:
         condition: service_healthy
@@ -39,7 +40,5 @@ services:
 
 volumes:
   data:
-  next:
-  node_modules:
   vscode:
     external: true
