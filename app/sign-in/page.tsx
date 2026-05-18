@@ -6,28 +6,18 @@ const LoginPage = () => {
 
         <p className="mt-1 text-sm text-fg-muted">Sign in to continue</p>
       </div>
-      <form action="#" className="w-full max-w-sm flex flex-col gap-4">
+      <form action="#" className="flex w-full max-w-sm flex-col gap-4">
         <div className="relative">
           <input
             type="text"
             name="username"
             id="username"
             placeholder=" "
-            className="peer w-full rounded-2xl
-        border border-border
-        bg-gnome-dark-3
-        px-5 pt-6 pb-2
-        text-fg
-        transition-all duration-200
-
-        focus:outline-none
-        focus:border-primary
-        focus:ring-2
-        focus:ring-primary/20"
+            className="peer bg-gnome-dark-3 w-full rounded-2xl border border-border px-5 pt-6 pb-2 text-fg transition-all duration-200 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
           />
           <label
             htmlFor="username"
-            className="absolute left-5 top-1/2 -translate-y-1/2 text-sm text-fg-muted transition-all duration-200 pointer-events-none peer-focus:top-3 peer-focus:text-xs peer-focus:text-primary peer-focus:translate-y-0 peer-[:not(:placeholder-shown)]:top-3 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:translate-y-0"
+            className="pointer-events-none absolute top-1/2 left-5 -translate-y-1/2 text-sm text-fg-muted transition-all duration-200 peer-focus:top-3 peer-focus:translate-y-0 peer-focus:text-xs peer-focus:text-primary peer-[:not(:placeholder-shown)]:top-3 peer-[:not(:placeholder-shown)]:translate-y-0 peer-[:not(:placeholder-shown)]:text-xs"
           >
             Username
           </label>
@@ -38,25 +28,25 @@ const LoginPage = () => {
             name="password"
             id="password"
             placeholder=" "
-            className="peer w-full rounded-2xl border border-border bg-gnome-dark-3 px-5 pt-6 pb-2 pr-12 text-fg transition-all duration-200 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+            className="peer bg-gnome-dark-3 w-full rounded-2xl border border-border px-5 pt-6 pr-12 pb-2 text-fg transition-all duration-200 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
           />
 
           <label
             htmlFor="password"
-            className="absolute left-5 top-1/2 -translate-y-1/2 text-sm text-fg-muted transition-all duration-200 pointer-events-none peer-focus:top-3 peer-focus:text-xs peer-focus:text-primary peer-focus:translate-y-0 peer-[:not(:placeholder-shown)]:top-3 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:translate-y-0"
+            className="pointer-events-none absolute top-1/2 left-5 -translate-y-1/2 text-sm text-fg-muted transition-all duration-200 peer-focus:top-3 peer-focus:translate-y-0 peer-focus:text-xs peer-focus:text-primary peer-[:not(:placeholder-shown)]:top-3 peer-[:not(:placeholder-shown)]:translate-y-0 peer-[:not(:placeholder-shown)]:text-xs"
           >
             Password
           </label>
           <button
             type="button"
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-fg-muted hover:text-fg transition-colors"
+            className="absolute top-1/2 right-4 -translate-y-1/2 text-fg-muted transition-colors hover:text-fg"
           >
             👁
           </button>
         </div>
         <button
           type="submit"
-          className="mt-2 h-12 rounded-2xl bg-primary text-white font-medium transition-all duration-200 hover:bg-primary-hover active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-primary/30"
+          className="mt-2 h-12 rounded-2xl bg-primary font-medium text-white transition-all duration-200 hover:bg-primary-hover focus:ring-2 focus:ring-primary/30 focus:outline-none active:scale-[0.98]"
         >
           Login
         </button>

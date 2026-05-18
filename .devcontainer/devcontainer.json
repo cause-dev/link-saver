@@ -1,8 +1,6 @@
 {
   "name": "Link Saver — Frontend (Next.js)",
-  "dockerComposeFile": [
-    "./compose.yml"
-  ],
+  "dockerComposeFile": ["./compose.yml"],
   "service": "frontend",
   "workspaceFolder": "/app",
   "shutdownAction": "stopCompose",
@@ -38,9 +36,7 @@
         "emmet.includeLanguages": {
           "typescriptreact": "html"
         },
-        "eslint.workingDirectories": [
-          "/app"
-        ],
+        "eslint.workingDirectories": ["/app"],
         "eslint.validate": [
           "javascript",
           "javascriptreact",
@@ -65,9 +61,7 @@
       }
     }
   },
-  "forwardPorts": [
-    3000
-  ],
+  "forwardPorts": [3000],
   "portsAttributes": {
     "3000": {
       "label": "Next.js",

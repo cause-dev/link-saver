@@ -22,11 +22,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.className} h-full antialiased bg-surface box-border`}
+      className={`${inter.className} box-border h-full bg-surface antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="flex min-h-full flex-col">
         <MainHeader />
-        <main className="flex-1 flex flex-col justify-center items-center">
+        <main className="flex flex-1 flex-col items-center justify-center">
           {children}
         </main>
       </body>
