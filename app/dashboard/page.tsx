@@ -1,7 +1,9 @@
+import AddLink from "./_components/add-link";
+
 const DashboardPage = () => {
   return (
     <div className="flex w-full items-center justify-center">
-      <h1>Dashboard</h1>
+      <AddLink />
     </div>
   );
 };
