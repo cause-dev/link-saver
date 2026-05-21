@@ -3,6 +3,34 @@ import { auth } from "@/lib/auth";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
+export async function GET(req: NextRequest) {
+  const session = await auth.api.getSession({
+    headers: req.headers,
+  });
+
+  if (!session) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  try {
+    const links = await prisma.link.findMany({
+      where: { userId: session.user.id },
+      orderBy: { createdAt: "desc" },
+    });
+
+    return NextResponse.json(links);
+  } catch (error: any) {
+    console.log(error);
+    return NextResponse.json(
+      {
+        error: "Failed to fetch links",
+        message: error.message || "Unknown error",
+      },
+      { status: 500 },
+    );
+  }
+}
+
 export async function POST(req: NextRequest) {
   const session = await auth.api.getSession({
     headers: req.headers,
