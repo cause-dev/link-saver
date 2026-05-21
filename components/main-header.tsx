@@ -39,13 +39,13 @@ const MainHeader = () => {
       <nav className="flex items-center justify-center">
         <ul className="flex items-center justify-center gap-12">
           <li>
-            <Link href="#">Home</Link>
+            <Link href="/dashboard">Dashboard</Link>
           </li>
           <li>
             <Link href="#">My Links</Link>
           </li>
           <li>
-            <Link href="#">Add New Link</Link>
+            <Link href="/dashboard/links/add">Add New Link</Link>
           </li>
         </ul>
       </nav>
