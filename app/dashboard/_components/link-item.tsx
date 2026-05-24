@@ -1,5 +1,7 @@
 "use client";
 
+import { deleteLink } from "../_actions/links";
+
 const LinkItem = ({
   id,
   url,
@@ -16,7 +18,7 @@ const LinkItem = ({
         <p>{url}</p>
       </a>
       <button
-        onClick={() => console.log(id)}
+        onClick={() => deleteLink(id)}
         className="cursor-pointer rounded-full bg-blue-3 px-5 py-2"
       >
         Delete
