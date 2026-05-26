@@ -19,9 +19,15 @@ const DashboardPage = async () => {
     orderBy: { createdAt: "desc" },
   });
 
+  const tags = await prisma.tag.findMany({
+    orderBy: { createdAt: "desc" },
+  });
+
+  console.log(tags);
+
   return (
     <div className="grid w-full items-center justify-center gap-4">
-      <DashboardToolbar />
+      <DashboardToolbar tags={tags} />
       {links.map((link) => {
         return (
           <LinkItem

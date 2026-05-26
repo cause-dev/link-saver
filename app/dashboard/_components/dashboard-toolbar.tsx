@@ -3,9 +3,17 @@
 import { useState } from "react";
 import { SlidersHorizontal } from "lucide-react";
 
-const allTags = ["Reading", "Writing", "Sports", "News"];
+type Tag = {
+  id: string;
+  name: string;
+  createdAt: Date;
+};
 
-const DashboardToolbar = () => {
+type Props = {
+  tags: Tag[];
+};
+
+const DashboardToolbar = ({ tags }: Props) => {
   const [showFilters, setShowFilters] = useState<boolean>(false);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
@@ -56,17 +64,17 @@ const DashboardToolbar = () => {
               )}
             </div>
             <div className="flex flex-wrap gap-2">
-              {allTags.map((tag) => (
+              {tags.map((tag) => (
                 <button
-                  key={tag}
-                  onClick={() => toggleTag(tag)}
+                  key={tag.id}
+                  onClick={() => toggleTag(tag.name)}
                   className={`cursor-pointer rounded-lg px-3 py-1.5 font-mono text-xs font-medium transition-all ${
-                    selectedTags.includes(tag)
+                    selectedTags.includes(tag.name)
                       ? "border border-blue-500/40 bg-blue-500/20 text-blue-300"
                       : "border border-white/5 bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white"
                   }`}
                 >
-                  {tag}
+                  {tag.name}
                 </button>
               ))}
             </div>
