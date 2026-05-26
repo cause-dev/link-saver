@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 
-import { deleteLink } from "../_actions/links";
+import { deleteLink, statusRead } from "../_actions/links";
 
 interface LinkItemProps {
   id: string;
@@ -16,6 +16,7 @@ const LinkItem = ({ id, url, title, isRead }: LinkItemProps) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsReadStatus(e.target.checked);
+    statusRead(id, e.target.checked);
   };
   console.log("isRead " + isReadStatus);
   return (

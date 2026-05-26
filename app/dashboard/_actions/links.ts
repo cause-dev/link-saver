@@ -8,3 +8,8 @@ export async function deleteLink(id: string) {
 
   revalidatePath("/dashboard");
 }
+
+export async function statusRead(id: string, isRead: boolean) {
+  await prisma.link.update({ where: { id }, data: { isRead } });
+  revalidatePath("/dashboard");
+}
