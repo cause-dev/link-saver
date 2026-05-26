@@ -32,7 +32,7 @@ services:
       - /app/node_modules
       - next:/app/.next
       - vscode:/root/.vscode-server/extensions
-    command: sh -c "rm -rf .next/* && bunx --bun prisma generate && bun run dev"
+    command: sh -c "rm -rf .next/* && bun run prisma generate && bun run dev"
     depends_on:
       db:
         condition: service_healthy
