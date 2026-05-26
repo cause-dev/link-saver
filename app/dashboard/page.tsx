@@ -2,6 +2,7 @@ import prisma from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
+import DashboardToolbar from "./_components/dashboard-toolbar";
 import LinkItem from "./_components/link-item";
 
 const DashboardPage = async () => {
@@ -20,6 +21,7 @@ const DashboardPage = async () => {
 
   return (
     <div className="grid w-full items-center justify-center gap-4">
+      <DashboardToolbar />
       {links.map((link) => {
         return (
           <LinkItem
