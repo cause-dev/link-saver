@@ -27,6 +27,7 @@ const DashboardPage = async () => {
             id={link.id}
             url={link.url}
             title={link.title!}
+            isRead={link.isRead}
           />
         );
       })}

@@ -1,16 +1,23 @@
 "use client";
 
+import React, { useState } from "react";
+
 import { deleteLink } from "../_actions/links";
 
-const LinkItem = ({
-  id,
-  url,
-  title,
-}: {
+interface LinkItemProps {
   id: string;
   url: string;
   title: string;
-}) => {
+  isRead: boolean;
+}
+
+const LinkItem = ({ id, url, title, isRead }: LinkItemProps) => {
+  const [isReadStatus, setIsReadStatus] = useState<boolean>(isRead);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsReadStatus(e.target.checked);
+  };
+  console.log("isRead " + isReadStatus);
   return (
     <div className="flex items-center justify-center gap-5 rounded-3xl bg-active px-5 py-2">
       <a href={url} target="_blank" className="flex gap-3">
@@ -18,7 +25,12 @@ const LinkItem = ({
         <p>{url}</p>
       </a>
       <label className="relative inline-flex cursor-pointer items-center">
-        <input type="checkbox" className="peer sr-only" />
+        <input
+          type="checkbox"
+          className="peer sr-only"
+          checked={isReadStatus}
+          onChange={handleChange}
+        />
         <div className="h-6 w-10 rounded-full bg-gray-300 transition-colors duration-300 peer-checked:bg-blue-600"></div>
         <div className="absolute top-1 left-1 h-4 w-4 rounded-full bg-white shadow-md transition-transform duration-300 peer-checked:translate-x-4"></div>
         <span className="ml-2 text-sm font-medium text-gray-700">isRead</span>
