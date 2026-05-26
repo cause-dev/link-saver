@@ -2,8 +2,7 @@ import prisma from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
-import DashboardToolbar from "./_components/dashboard-toolbar";
-import LinkItem from "./_components/link-item";
+import LinksSection from "./_components/links-section";
 
 const DashboardPage = async () => {
   const session = await auth.api.getSession({
@@ -17,30 +16,16 @@ const DashboardPage = async () => {
   const links = await prisma.link.findMany({
     where: { userId: session.user.id },
     orderBy: { createdAt: "desc" },
+    include: {
+      tags: true,
+    },
   });
 
   const tags = await prisma.tag.findMany({
     orderBy: { createdAt: "desc" },
   });
 
-  console.log(tags);
-
-  return (
-    <div className="grid w-full items-center justify-center gap-4">
-      <DashboardToolbar tags={tags} />
-      {links.map((link) => {
-        return (
-          <LinkItem
-            key={link.id}
-            id={link.id}
-            url={link.url}
-            title={link.title!}
-            isRead={link.isRead}
-          />
-        );
-      })}
-    </div>
-  );
+  return <LinksSection links={links} tags={tags} />;
 };
 
 export default DashboardPage;

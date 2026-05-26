@@ -1,21 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { SlidersHorizontal } from "lucide-react";
 
 type Tag = {
   id: string;
   name: string;
-  createdAt: Date;
 };
 
 type Props = {
   tags: Tag[];
+  selectedTags: Tag[];
+  setSelectedTags: React.Dispatch<React.SetStateAction<Tag[]>>;
 };
 
-const DashboardToolbar = ({ tags }: Props) => {
+const DashboardToolbar = ({ tags, selectedTags, setSelectedTags }: Props) => {
   const [showFilters, setShowFilters] = useState<boolean>(false);
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   const clearTags = () => {
     setSelectedTags([]);
@@ -23,9 +23,11 @@ const DashboardToolbar = ({ tags }: Props) => {
 
   const hasActiveFilters = selectedTags.length > 0;
 
-  const toggleTag = (tag: string) => {
+  const toggleTag = (tag: Tag) => {
     setSelectedTags((prev) =>
-      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag],
+      prev.some((t) => t.id === tag.id)
+        ? prev.filter((t) => t.id !== tag.id)
+        : [...prev, tag],
     );
   };
   return (
@@ -67,9 +69,9 @@ const DashboardToolbar = ({ tags }: Props) => {
               {tags.map((tag) => (
                 <button
                   key={tag.id}
-                  onClick={() => toggleTag(tag.name)}
+                  onClick={() => toggleTag(tag)}
                   className={`cursor-pointer rounded-lg px-3 py-1.5 font-mono text-xs font-medium transition-all ${
-                    selectedTags.includes(tag.name)
+                    selectedTags.includes(tag)
                       ? "border border-blue-500/40 bg-blue-500/20 text-blue-300"
                       : "border border-white/5 bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white"
                   }`}
