@@ -10,6 +10,9 @@ export async function deleteLink(id: string) {
 }
 
 export async function statusRead(id: string, isRead: boolean) {
-  await prisma.link.update({ where: { id }, data: { isRead } });
+  await prisma.link.update({
+    where: { id },
+    data: { isRead, readAt: isRead ? new Date() : null },
+  });
   revalidatePath("/dashboard");
 }
