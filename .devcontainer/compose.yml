@@ -30,9 +30,10 @@ services:
     volumes:
       - ../:/app:z
       - /app/node_modules
-      - next:/app/.next
       - vscode:/root/.vscode-server/extensions
-    command: sh -c "rm -rf .next/* && bun run prisma generate && bun run dev"
+    tmpfs:
+      - /app/.next
+    command: sh -c "bun run prisma generate && bun run dev"
     depends_on:
       db:
         condition: service_healthy
@@ -40,5 +41,4 @@ services:
 
 volumes:
   data:
-  next:
   vscode:
