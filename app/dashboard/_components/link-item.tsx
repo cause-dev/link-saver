@@ -26,7 +26,7 @@ const LinkItem = ({ id, url, title, isRead, favicon }: LinkItemProps) => {
       <img src={favicon} alt="favicon" width={30} height={30} />
       <a href={url} target="_blank" className="flex gap-3">
         <h3 className="font-bold">{title}</h3>
-        <p>{url}</p>
+        <p>{url.length > 22 ? `${url.slice(0, 22 - 3)}...` : url}</p>
       </a>
       <label className="relative inline-flex cursor-pointer items-center">
         <input
