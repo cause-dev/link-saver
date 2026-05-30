@@ -54,6 +54,7 @@ const LinksSection = ({ links, tags }: Props) => {
         setSearchQuery={setSearchQuery}
       />
       {filteredLinks.map((link) => {
+        const favicon = new URL("/favicon.ico", link.url).toString();
         return (
           <LinkItem
             key={link.id}
@@ -61,6 +62,7 @@ const LinksSection = ({ links, tags }: Props) => {
             url={link.url}
             title={link.title!}
             isRead={link.isRead}
+            favicon={favicon}
           />
         );
       })}

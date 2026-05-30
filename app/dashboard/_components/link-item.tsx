@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import React, { useState } from "react";
@@ -9,9 +10,10 @@ interface LinkItemProps {
   url: string;
   title: string;
   isRead: boolean;
+  favicon: string;
 }
 
-const LinkItem = ({ id, url, title, isRead }: LinkItemProps) => {
+const LinkItem = ({ id, url, title, isRead, favicon }: LinkItemProps) => {
   const [isReadStatus, setIsReadStatus] = useState<boolean>(isRead);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,6 +23,7 @@ const LinkItem = ({ id, url, title, isRead }: LinkItemProps) => {
   console.log("isRead " + isReadStatus);
   return (
     <div className="flex items-center justify-center gap-5 rounded-3xl bg-active px-5 py-2">
+      <img src={favicon} alt="favicon" width={30} height={30} />
       <a href={url} target="_blank" className="flex gap-3">
         <h3 className="font-bold">{title}</h3>
         <p>{url}</p>
