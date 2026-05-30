@@ -25,17 +25,24 @@ type Props = {
 
 const LinksSection = ({ links, tags }: Props) => {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   const filteredLinks = useMemo(() => {
     return links.filter((link) => {
-      return (
+      const matchesSearch =
+        searchQuery === "" ||
+        link.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        link.url.toLowerCase().includes(searchQuery.toLowerCase());
+
+      const matchesTags =
         selectedTags.length === 0 ||
         selectedTags.some((tag) => {
           return link.tags.some((t) => t.id === tag.id);
-        })
-      );
+        });
+
+      return matchesSearch && matchesTags;
     });
-  }, [selectedTags, links]);
+  }, [selectedTags, links, searchQuery]);
 
   return (
     <div className="grid w-full items-center justify-center gap-4">
@@ -43,6 +50,8 @@ const LinksSection = ({ links, tags }: Props) => {
         tags={tags}
         selectedTags={selectedTags}
         setSelectedTags={setSelectedTags}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
       />
       {filteredLinks.map((link) => {
         return (

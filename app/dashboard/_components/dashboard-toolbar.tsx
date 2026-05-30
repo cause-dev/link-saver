@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { SlidersHorizontal } from "lucide-react";
+import { SlidersHorizontal, Search, X } from "lucide-react";
 
 type Tag = {
   id: string;
@@ -12,9 +12,17 @@ type Props = {
   tags: Tag[];
   selectedTags: Tag[];
   setSelectedTags: React.Dispatch<React.SetStateAction<Tag[]>>;
+  searchQuery: string;
+  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const DashboardToolbar = ({ tags, selectedTags, setSelectedTags }: Props) => {
+const DashboardToolbar = ({
+  tags,
+  selectedTags,
+  setSelectedTags,
+  searchQuery,
+  setSearchQuery,
+}: Props) => {
   const [showFilters, setShowFilters] = useState<boolean>(false);
 
   const clearTags = () => {
@@ -32,23 +40,45 @@ const DashboardToolbar = ({ tags, selectedTags, setSelectedTags }: Props) => {
   };
   return (
     <div>
-      <button
-        onClick={() => setShowFilters(!showFilters)}
-        className={`flex cursor-pointer items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium transition-all ${
-          showFilters || selectedTags.length > 0
-            ? "border border-blue-500/30 bg-blue-500/15 text-blue-400"
-            : "bg-dark-600 border border-white/10 text-gray-400 hover:border-white/20 hover:text-white"
-        }`}
-      >
-        <SlidersHorizontal size={14} />
-        Filters
-        {selectedTags.length > 0 && (
-          <span className="rounded-md bg-blue-500/20 px-1.5 py-0.5 font-mono text-xs text-blue-300">
-            {selectedTags.length}
-          </span>
-        )}
-      </button>
-
+      <div className="flex justify-between gap-2">
+        <div className="relative w-full max-w-md flex-1">
+          <Search
+            size={16}
+            className="absolute top-1/2 left-4 -translate-y-1/2 text-gray-500"
+          />
+          <input
+            type="text"
+            placeholder="Search projects, technologies..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="bg-dark-600 w-full rounded-xl border border-white/10 py-3 pr-4 pl-11 text-sm text-white placeholder-gray-500 transition-all focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/25 focus:outline-none"
+          />
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery("")}
+              className="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer rounded-md p-1 text-gray-500 transition-all hover:bg-white/10 hover:text-white"
+            >
+              <X size={14} />
+            </button>
+          )}
+        </div>
+        <button
+          onClick={() => setShowFilters(!showFilters)}
+          className={`flex cursor-pointer items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium transition-all ${
+            showFilters || selectedTags.length > 0
+              ? "border border-blue-500/30 bg-blue-500/15 text-blue-400"
+              : "bg-dark-600 border border-white/10 text-gray-400 hover:border-white/20 hover:text-white"
+          }`}
+        >
+          <SlidersHorizontal size={14} />
+          Filters
+          {selectedTags.length > 0 && (
+            <span className="rounded-md bg-blue-500/20 px-1.5 py-0.5 font-mono text-xs text-blue-300">
+              {selectedTags.length}
+            </span>
+          )}
+        </button>
+      </div>
       {showFilters && (
         <div className="animate-slide-down">
           <div className="mt-4 border-t border-white/5 pt-4">
