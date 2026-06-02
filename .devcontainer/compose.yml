@@ -29,10 +29,10 @@ services:
       - ../.env.local
     volumes:
       - ../:/app:z
-      - /app/node_modules
       - vscode:/root/.vscode-server/extensions
     tmpfs:
       - /app/.next
+      - /app/node_modules
     command: sh -c "bun run dev"
     depends_on:
       db:
