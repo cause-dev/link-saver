@@ -29,6 +29,8 @@ RUN --mount=type=cache,target=/root/.bun \
 
 COPY . .
 
+RUN bun prisma generate
+
 EXPOSE 3000
 
 CMD ["bun", "run", "dev"]
