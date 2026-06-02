@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 
 import DashboardToolbar from "./dashboard-toolbar";
+import LinksList from "./links-list";
 import LinkItem from "./link-item";
 
 type Link = {
@@ -53,19 +54,7 @@ const LinksSection = ({ links, tags }: Props) => {
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
       />
-      {filteredLinks.map((link) => {
-        const favicon = new URL("/favicon.ico", link.url).toString();
-        return (
-          <LinkItem
-            key={link.id}
-            id={link.id}
-            url={link.url}
-            title={link.title!}
-            isRead={link.isRead}
-            favicon={favicon}
-          />
-        );
-      })}
+      <LinksList links={filteredLinks} />
     </div>
   );
 };

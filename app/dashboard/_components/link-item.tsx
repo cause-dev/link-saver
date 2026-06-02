@@ -1,7 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import React, { useState } from "react";
+import { useOptimistic, useTransition } from "react";
+
+import { Trash } from "lucide-react";
 
 import { deleteLink, statusRead } from "../_actions/links";
 
@@ -14,36 +16,52 @@ interface LinkItemProps {
 }
 
 const LinkItem = ({ id, url, title, isRead, favicon }: LinkItemProps) => {
-  const [isReadStatus, setIsReadStatus] = useState<boolean>(isRead);
+  const [optimisticRead, setOptimisticRead] = useOptimistic(isRead);
+  const [isPending, startTransition] = useTransition();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setIsReadStatus(e.target.checked);
-    statusRead(id, e.target.checked);
+  const handleClick = () => {
+    startTransition(async () => {
+      setOptimisticRead(!optimisticRead);
+      await statusRead(id, !optimisticRead);
+    });
   };
-  console.log("isRead " + isReadStatus);
   return (
-    <div className="flex items-center justify-center gap-5 rounded-3xl bg-active px-5 py-2">
-      <img src={favicon} alt="favicon" width={30} height={30} />
-      <a href={url} target="_blank" className="flex gap-3">
-        <h3 className="font-bold">{title}</h3>
-        <p>{url.length > 22 ? `${url.slice(0, 22 - 3)}...` : url}</p>
-      </a>
-      <label className="relative inline-flex cursor-pointer items-center">
-        <input
-          type="checkbox"
-          className="peer sr-only"
-          checked={isReadStatus}
-          onChange={handleChange}
-        />
-        <div className="h-6 w-10 rounded-full bg-gray-300 transition-colors duration-300 peer-checked:bg-blue-600"></div>
-        <div className="absolute top-1 left-1 h-4 w-4 rounded-full bg-white shadow-md transition-transform duration-300 peer-checked:translate-x-4"></div>
-        <span className="ml-2 text-sm font-medium text-gray-700">isRead</span>
-      </label>
-      <button
-        onClick={() => deleteLink(id)}
-        className="cursor-pointer rounded-full bg-blue-3 px-5 py-2"
+    <div
+      className={
+        !optimisticRead
+          ? "flex cursor-pointer items-center gap-3 rounded-xl border border-white/10 bg-[#1e1e38] p-4 transition-all hover:border-white/20"
+          : "flex cursor-pointer items-center gap-3 rounded-xl border border-white/10 bg-[#1e1e38] p-4 opacity-35 transition-all hover:opacity-60"
+      }
+    >
+      <div
+        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/5 text-lg"
+        aria-hidden="true"
       >
-        Delete
+        <img src={favicon} alt="favicon" width={30} height={30} />
+      </div>
+
+      <div className="min-w-0 flex-1">
+        <div className="mb-0.5 text-sm font-bold text-[#e0e0ff]">{title}</div>
+        <div className="truncate text-xs text-white/30">{url}</div>
+      </div>
+
+      <span className="shrink-0 rounded-full bg-blue-500/20 px-2.5 py-1 text-[11px] font-bold text-[#a0a0ff]">
+        Dev
+      </span>
+
+      <button
+        className="shrink-0 cursor-pointer rounded-lg border border-white/10 px-2.5 py-1 text-xs text-white/25 transition-all hover:border-white/30 hover:text-white"
+        onClick={handleClick}
+        disabled={isPending}
+      >
+        {optimisticRead ? "Mark Unread" : "Mark Read"}
+      </button>
+
+      <button
+        className="flex cursor-pointer items-center rounded-lg border border-white/10 p-1.5 text-sm text-white/25 transition-all hover:border-red-400/30 hover:bg-red-400/5 hover:text-red-400"
+        onClick={() => deleteLink(id)}
+      >
+        <Trash size={20} />
       </button>
     </div>
   );
