@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
+import { ModalProvider } from "@/context/modal-context";
 import MainHeader from "@/components/main-header";
 import "./globals.css";
 
@@ -25,10 +26,12 @@ export default function RootLayout({
       className={`${inter.className} box-border h-full bg-surface antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <MainHeader />
-        <main className="flex flex-1 flex-col items-center justify-center">
-          {children}
-        </main>
+        <ModalProvider>
+          <MainHeader />
+          <main className="flex flex-1 flex-col items-center justify-center">
+            {children}
+          </main>
+        </ModalProvider>
       </body>
     </html>
   );

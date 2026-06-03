@@ -4,11 +4,13 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useSession, signOut } from "@/lib/auth-client";
+import { useModal } from "@/context/modal-context";
 
 const MainHeader = () => {
   const { error, isPending, data } = useSession();
   const [openDropdown, setOpenDropdown] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const { openAddLink } = useModal();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -45,7 +47,7 @@ const MainHeader = () => {
             <Link href="#">My Links</Link>
           </li>
           <li>
-            <Link href="/dashboard/links/add">Add New Link</Link>
+            <button onClick={openAddLink}>Add New Link</button>
           </li>
         </ul>
       </nav>
