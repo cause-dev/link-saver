@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useRef, forwardRef } from "react";
+import { createContext, useContext, useRef } from "react";
 import type { ReactNode } from "react";
 
 import AddLinkModal from "@/app/dashboard/_components/add-link-modal";
