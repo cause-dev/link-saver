@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useSession, signOut } from "@/lib/auth-client";
 import { useModal } from "@/context/modal-context";
 import {
@@ -22,6 +22,7 @@ const MainHeader = () => {
   const ref = useRef<HTMLDivElement>(null);
   const { openAddLink } = useModal();
   const pathname = usePathname();
+  const route = useRouter();
 
   // Close dropdown on click outside
   useEffect(() => {
@@ -44,6 +45,11 @@ const MainHeader = () => {
     },
     { name: "My Links", href: "/links", icon: <LinkIcon size={18} /> },
   ];
+
+  const handleSignOut = async () => {
+    await signOut();
+    route.refresh();
+  };
 
   if (isPending)
     return <div className="h-20 w-full animate-pulse bg-surface-2/50" />;
@@ -129,7 +135,7 @@ const MainHeader = () => {
                   </p>
                 </div>
                 <button
-                  onClick={() => signOut()}
+                  onClick={handleSignOut}
                   className="flex w-full items-center gap-2 px-4 py-3 text-sm text-red-400 transition-colors hover:bg-red-400/10"
                 >
                   <LogOut size={16} />
