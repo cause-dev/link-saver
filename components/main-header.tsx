@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 
 const MainHeader = () => {
-  const { isPending, data } = useSession();
+  const { data } = useSession();
   const [openDropdown, setOpenDropdown] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -51,9 +51,6 @@ const MainHeader = () => {
     route.refresh();
   };
 
-  if (isPending)
-    return <div className="h-20 w-full animate-pulse bg-surface-2/50" />;
-
   return (
     <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-surface-2/80 backdrop-blur-md">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 lg:px-10">
@@ -85,15 +82,17 @@ const MainHeader = () => {
                 </Link>
               </li>
             ))}
-            <li>
-              <button
-                onClick={openAddLink}
-                className="flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white transition-all hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/30 active:scale-95"
-              >
-                <Plus size={18} />
-                Add Link
-              </button>
-            </li>
+            {data?.user && (
+              <li>
+                <button
+                  onClick={openAddLink}
+                  className="flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white transition-all hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/30 active:scale-95"
+                >
+                  <Plus size={18} />
+                  Add Link
+                </button>
+              </li>
+            )}
           </ul>
         </nav>
 
@@ -171,18 +170,20 @@ const MainHeader = () => {
                 </Link>
               </li>
             ))}
-            <li className="pt-4">
-              <button
-                onClick={() => {
-                  openAddLink();
-                  closeMobileMenu();
-                }}
-                className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-4 font-bold text-white transition-transform active:scale-[0.98]"
-              >
-                <Plus size={20} />
-                Add New Link
-              </button>
-            </li>
+            {data?.user && (
+              <li className="pt-4">
+                <button
+                  onClick={() => {
+                    openAddLink();
+                    closeMobileMenu();
+                  }}
+                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-4 font-bold text-white transition-transform active:scale-[0.98]"
+                >
+                  <Plus size={20} />
+                  Add New Link
+                </button>
+              </li>
+            )}
           </ul>
         </div>
       )}
